@@ -1,0 +1,1 @@
+module.exports = '<h2>authCallback</h2>\n<section>\n  {{message}}\n</section>';

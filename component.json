@@ -1,0 +1,19 @@
+{
+  "name": "ng2Auth",
+  "repo": "ng2/auth",
+  "description": "",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "routes.js",
+    "providers/oauth2.js",
+    "controllers/auth-callback.js",
+    "views/auth-callback.js"
+  ],
+  "styles": []
+}
