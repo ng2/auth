@@ -11,6 +11,7 @@
   "scripts": [
     "index.js",
     "routes.js",
+    "config.js",
     "providers/oauth2.js",
     "controllers/auth-callback.js",
     "views/auth-callback.js"
