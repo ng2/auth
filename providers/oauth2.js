@@ -70,6 +70,17 @@ angular
           })
       });
 
+      $rootScope.$on('ng2auth:oauth2::expired', function (event, data) {
+        $rootScope.$broadcast('ng2auth:oauth2::renew', data);
+        userService
+          .renewSession(data)
+          .then(function (res) {
+            $rootScope.$broadcast('ng2auth:login::success', res);
+          }, function (error) {
+            $rootScope.$broadcast('ng2auth:login::error', error);
+          });
+      });
+
       /**
        * @name findStrategy
        * @param  {String or Object} strategy  the strategy to find
