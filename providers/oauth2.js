@@ -56,12 +56,18 @@ angular
         } else {
           strategies[strategy] = $injector.get(strategy);
         }
+      });
 
-        // bind listeners!
-        $rootScope.$on('ng2auth:login-end::'+(strategy.name || strategy)
-        , function (event, data) {
-          console.log("status", data);
-        })
+      // bind listeners!
+      $rootScope.$on('ng2auth:oauth2::success', function (event, data) {
+        $rootScope.$broadcast('ng2auth:login::begin');
+        userService
+          .login(data)
+          .then(function (res) {
+            $rootScope.$broadcast('ng2auth:login::success', res);
+          }, function (error) {
+            $rootScope.$broadcast('ng2auth:login::failure', error);
+          })
       });
 
       /**
@@ -80,6 +86,11 @@ angular
       }
 
       return {
+        /**
+         * getStrategy
+         * @param  {String} strategy a strategy name
+         * @return {Object}          the strategy with that name
+         */
         getStrategy: function (strategy) {
           return findStrategy(strategy)
         },
@@ -89,7 +100,7 @@ angular
          * @param  {Object} opts the strategy and other vars
          */
         passToken: function (opts) {
-          $rootScope.$broadcast('ng2auth:callback::'+opts.strategy, opts);
+          $rootScope.$broadcast('ng2auth:oauth2::callback', opts);
         },
 
         /**
@@ -103,11 +114,9 @@ angular
           userService
             .getUser()
             .then(function (res) {
-              // yay some data!
-              // deferred.resolve(user);
+              deferred.resolve(res);
             }, function (error) {
-              // ooops
-              // deferred.reject(error);
+              deferred.reject(error);
             });
           return deferred.promise;
         },
@@ -119,7 +128,7 @@ angular
          * @return {Promise}
          */
         login: function (strategy) {
-          $rootScope.$broadcast('ng2auth:login:begin::'+strategy);
+          $rootScope.$broadcast('ng2auth:oauth2::begin',strategy);
           findStrategy(strategy)
             .getAccessToken();
         },
@@ -132,17 +141,17 @@ angular
          */
         logout: function () {
           var deferred = $q.defer();
-          $rootScope.$broadcast('ng2auth:logout:begin::*');
+          $rootScope.$broadcast('ng2auth:logout::begin');
           userService
             .logout()
             .then(function (res) {
               // yay some data!
               // deferred.resolve(user);
-              $rootScope.$broadcast('ng2auth:logout:end::*', user);
+              $rootScope.$broadcast('ng2auth:logout::success', user);
             }, function (error) {
               // ooops
               // deferred.reject(error);
-              $rootScope.$broadcast('ng2auth:logout:end::*', error);
+              $rootScope.$broadcast('ng2auth:logout::failure', error);
             });
           return deferred.promise;
         }
