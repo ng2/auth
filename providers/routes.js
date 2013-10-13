@@ -51,7 +51,7 @@ angular
 
 
           if(typeof userService === 'String') {
-            userService = $injector.get(userServiceName);
+            userService = $injector.get(userService);
           }
 
           if (!userService) {
