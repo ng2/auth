@@ -22,7 +22,8 @@ angular
        * @description
        * The user service.
        */
-      var userService = 'UserService';
+      var userService
+        , defaultUserService = 'UserService';
 
       /**
        * @name handlers
@@ -50,9 +51,11 @@ angular
         function ($rootScope, $location, $route, $injector) {
 
 
-          if(typeof userService === 'String') {
-            userService = $injector.get(userService);
+          if(!userService) {
+            userService = defaultUserService;
           }
+
+          userService = $injector.get(userService);
 
           if (!userService) {
             throw new Error('ng2Auth:Routes please configure a userService');
