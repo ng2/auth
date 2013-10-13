@@ -153,7 +153,7 @@ angular
               $rootScope.$broadcast("ng2auth:routes::log","Checking your session...");
               userService.getUser().then(function (user) {
                 currentUser = user;
-                $rootScope.$broadcast("ng2auth:routes::log","we got", user)
+                $rootScope.$broadcast("ng2auth:login::success", user);
                 if(typeof handlers.locationChange === 'function') {
                   handlers.locationChange(event, next);
                 }
