@@ -1,9 +1,9 @@
 {
   "name": "ng2Auth",
   "repo": "ng2/auth",
-  "description": "",
-  "version": "0.0.1",
-  "keywords": [],
+  "description": "Strategy-based auth module for AngularJS",
+  "version": "0.0.2",
+  "keywords": ["ng2","auth","strategy","angularjs","ng2Auth","ng2/auth","ng2/","authentication","OAuth2"],
   "dependencies": {},
   "development": {},
   "license": "MIT",
