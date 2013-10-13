@@ -15,7 +15,8 @@
     "providers/oauth2.js",
     "controllers/auth-callback.js",
     "views/auth-callback.js",
-    "services/interceptors.js"
+    "services/interceptors.js",
+    "providers/routes.js"
   ],
   "styles": []
 }
