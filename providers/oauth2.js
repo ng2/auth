@@ -155,14 +155,14 @@ angular
           $rootScope.$broadcast('ng2auth:logout::begin');
           userService
             .logout()
-            .then(function (res) {
+            .then(function (user) {
               // yay some data!
-              // deferred.resolve(user);
               $rootScope.$broadcast('ng2auth:logout::success', user);
+              deferred.resolve(user);
             }, function (error) {
               // ooops
-              // deferred.reject(error);
               $rootScope.$broadcast('ng2auth:logout::failure', error);
+              deferred.reject(error);
             });
           return deferred.promise;
         }
