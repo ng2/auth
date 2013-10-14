@@ -100,7 +100,7 @@ angular
               $rootScope.$broadcast("ng2auth:routes::redirect", $location.search().redirect);
               $location.path($location.search().redirect);
               $location.search(false);
-            } else {
+            } else if ($location.path() === 'login'){
               $location.path('/');
             }
           };
