@@ -114,7 +114,7 @@ angular
            * it exists.
            */
           handlers.logoutSuccess = handlers.logoutSuccess || function () {
-            $rootScope.$broadcast("ng2auth:routes::redirecting", "/");
+            $rootScope.$broadcast("ng2auth:routes::redirect", "/");
             $location.path('/');
           };
 
@@ -152,8 +152,6 @@ angular
           $rootScope.$on('$locationChangeStart', function (event, next) {
             if(!$route.current) {
               userService.getUser().then(function (user) {
-                currentUser = user;
-                $rootScope.$broadcast("ng2auth:login::success", user);
                 if(typeof handlers.locationChange === 'function') {
                   handlers.locationChange(event, next);
                 }
