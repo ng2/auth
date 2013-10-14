@@ -39,8 +39,6 @@ angular
         locationChange: null,
       };
 
-      var currentUser;
-
       /**
        * @description
        * The actual service.
@@ -130,16 +128,20 @@ angular
            */
           handlers.locationChange = handlers.locationChange || function (event, next) {
             next = '/'+next.split('/').splice(3).join('/').split("?")[0];
-            if(currentUser === undefined){
-              var route = $route.routes[next] || false;
-              $rootScope.$broadcast("ng2auth:routes::guest-access", next);
-              $rootScope.$broadcast("ng2auth:routes::route-is", {route: next, is: route.public ? "public" : "private"});
-              if(route && (!route.public || route.private) ) {
+            var route = $route.routes[next] || false;
+            if(route && (route.public || route.private !== true) ) {
+              $rootScope.$broadcast("ng2auth:routes::proceed", next);
+            } else if (route && (route.private || route.public === false)) {
+              userService.getUser().then(function (user) {
+                console.log(user);
+                $rootScope.$broadcast("ng2auth:routes::proceed", next);
+              }, function (error) {
+                $rootScope.$broadcast("ng2auth:routes::guest-access", next);
                 $rootScope.$broadcast('ng2auth:routes::login-start');
                 handlers.loginStart(next.substr(1));
-              }
+              });
             } else {
-              $rootScope.$broadcast("ng2auth:routes::proceed", next);
+              $rootScope.$broadcast("ng2auth:routes::error", "Route "+next+" does not exist.");
             }
           };
 
@@ -149,8 +151,6 @@ angular
            */
           $rootScope.$on('$locationChangeStart', function (event, next) {
             if(!$route.current) {
-              $rootScope.$broadcast("ng2auth:routes::log","Welcome newcomer!");
-              $rootScope.$broadcast("ng2auth:routes::log","Checking your session...");
               userService.getUser().then(function (user) {
                 currentUser = user;
                 $rootScope.$broadcast("ng2auth:login::success", user);
@@ -171,7 +171,7 @@ angular
             }
           });
 
-          $rootScope.$on('ng2auth:routes::loginSuccess', function (event, next) {
+          $rootScope.$on('ng2auth:login::success', function (event, next) {
             if(typeof handlers.locationChange === 'function') {
               handlers.loginSuccess(event, next);
             }
