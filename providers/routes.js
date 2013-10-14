@@ -133,7 +133,6 @@ angular
               $rootScope.$broadcast("ng2auth:routes::proceed", next);
             } else if (route && (route.private || route.public === false)) {
               userService.getUser().then(function (user) {
-                console.log(user);
                 $rootScope.$broadcast("ng2auth:routes::proceed", next);
               }, function (error) {
                 $rootScope.$broadcast("ng2auth:routes::guest-access", next);
@@ -152,6 +151,7 @@ angular
           $rootScope.$on('$locationChangeStart', function (event, next) {
             if(!$route.current) {
               userService.getUser().then(function (user) {
+                $rootScope.$broadcast("ng2auth:login::success", user);
                 if(typeof handlers.locationChange === 'function') {
                   handlers.locationChange(event, next);
                 }
