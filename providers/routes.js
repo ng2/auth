@@ -98,7 +98,7 @@ angular
           handlers.loginSuccess = handlers.loginSuccess || function () {
             if($location.search().redirect) {
               $rootScope.$broadcast("ng2auth:routes::redirect", $location.search().redirect);
-              $location.path($location.search().redirect);
+              $location.path($location.search().redirect || "/");
               $location.search({});
             } else if ($location.path() === 'login'){
               $location.path('/');
