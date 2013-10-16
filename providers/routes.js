@@ -82,7 +82,7 @@ angular
             $rootScope.$broadcast("ng2auth:routes::redirect", "/login");
             $location.path('/login');
             $location.search({
-              redirect: encodeURIComponent(redirect)
+              redirect: redirect
             });
             return;
           };
@@ -137,7 +137,7 @@ angular
               }, function (error) {
                 $rootScope.$broadcast("ng2auth:routes::guest-access", next);
                 $rootScope.$broadcast('ng2auth:routes::login-start');
-                handlers.loginStart(next.substr(1));
+                handlers.loginStart(next);
               });
             } else {
               $rootScope.$broadcast("ng2auth:routes::error", "Route "+next+" does not exist.");
