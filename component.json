@@ -1,5 +1,5 @@
 {
-  "name": "ng2Auth",
+  "name": "ng2-auth",
   "repo": "ng2/auth",
   "description": "Strategy-based auth module for AngularJS",
   "version": "0.0.2",

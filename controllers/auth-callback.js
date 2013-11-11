@@ -1,7 +1,7 @@
 /**
  * @name ng2Auth.controllers:authCallback
  */
-angular.module('ng2Auth')
+angular.module('ng2-auth')
   .controller('authCallback',['$scope', '$location', '$routeParams', 'OAuth2'
   , function ($scope, $location, $routeParams, OAuth2) {
 

@@ -13,7 +13,7 @@
 */
 
 angular
-.module('ng2Auth')
+.module('ng2-auth')
 .provider('Routes', function () {
       /**
        * @name userService

@@ -1,6 +1,6 @@
 // auto-exports //
 
-var app = angular.module('ng2Auth', ['ngRoute']);
+var app = angular.module('ng2-auth', ['ngRoute']);
 
 require('./providers/oauth2');
 require('./providers/routes');
