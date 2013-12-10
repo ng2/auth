@@ -65,3 +65,6 @@ This are the strategies available:
 * [Facebook](https://github.com/ng2/auth-facebook)
 
 If you feel like giving this a go, fork the [Facebook Strategy](https://github.com/ng2/auth-facebook) and adapt it to your preferred OAuth2 service.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ng2/auth/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
